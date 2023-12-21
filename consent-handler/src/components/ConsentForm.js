@@ -9,6 +9,7 @@ const ConsentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    // End result
     consents.value = [...consents.value, {name, email, selectedProcesses}]
   };
 
@@ -27,9 +28,9 @@ const ConsentForm = () => {
       <label>
         Data Processes:
         <select multiple value={selectedProcesses} onChange={(e) => setSelectedProcesses(Array.from(e.target.selectedOptions, (option) => option.value))}>
-          <option value="process1">Process 1</option>
-          <option value="process2">Process 2</option>
-          <option value="process3">Process 3</option>
+          <option value="newsletter">Receive newsletter</option>
+          <option value="ads">Be shown targetd ads</option>
+          <option value="statistics">Contribute to anonymous visit statistics</option>
         </select>
       </label>
       <br />

@@ -1,6 +1,6 @@
 import React, { createContext } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import { createAppState } from './app-state'
+import { FetchAppData } from './app-state'
 import ConsentForm from './components/ConsentForm'
 import ConsentList from './components/ConsentList'
 import './App.css'
@@ -8,9 +8,9 @@ import './App.css'
 export const ConsentContext = createContext()
 
 function App() {
-
+  
   return (
-    <ConsentContext.Provider value={createAppState()}>
+    <ConsentContext.Provider value={FetchAppData()}>
       <Router>
         <div>
           <nav>
