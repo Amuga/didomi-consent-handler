@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
-import { effect } from '@preact/signals-react';
-import { ConsentContext } from '../App';
+import React from 'react';
+import { consents } from '../App'
+
 
 const ConsentList = () => {
 
-    const { consents } = useContext(ConsentContext)
     console.log('in list', consents)
-    effect(() => console.log('anything', consents))
     console.log(consents?.value)
 
   return (

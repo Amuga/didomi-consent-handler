@@ -1,41 +1,60 @@
-import React, { useState, useContext } from 'react'
-import { ConsentContext } from '../App'
+import React, { useState } from 'react'
+import { consents } from '../App'
+import { Button, FormGroup, FormControlLabel, Checkbox, Box, TextField } from '@mui/material';
 
 const ConsentForm = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [selectedProcesses, setSelectedProcesses] = useState([])
-  const { consents } = useContext(ConsentContext)
+  const options = [ { value: 'newsletter', label: 'Receive newsletter' },
+    { value: 'adTargetting', label: 'Be shown targetd ads' },
+    { value: 'stats', label: 'Contribute to anonymous visit statistics' }, 
+  ];
+
+  const handleCheckboxChange = (event) => {
+    const { value } = event.target
+
+    setSelectedProcesses((prevSelected) => {
+      if (prevSelected.includes(value)) {
+        return prevSelected.filter((item) => item !== value)
+      } else {
+        return [...prevSelected, value]
+      } })
+  };
+
+  const clearForm = () => {
+    setName('')
+    setEmail('')
+    setSelectedProcesses([])
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
     // End result
     consents.value = [...consents.value, {name, email, selectedProcesses}]
+    clearForm()
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-      </label>
+    <Box component="form"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+      }}
+    >
+        <TextField label='Name' onChange={(e) => setName(e.target.value)} value={name} variant='outlined'/>
       <br />
-      <label>
-        Email:
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      </label>
+        <TextField type="email" label='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
       <br />
-      <label>
         Data Processes:
-        <select multiple value={selectedProcesses} onChange={(e) => setSelectedProcesses(Array.from(e.target.selectedOptions, (option) => option.value))}>
-          <option value="newsletter">Receive newsletter</option>
-          <option value="ads">Be shown targetd ads</option>
-          <option value="statistics">Contribute to anonymous visit statistics</option>
-        </select>
-      </label>
+        <FormGroup> {options.map((option) => ( 
+          <FormControlLabel key={option.value} control={
+            <Checkbox checked={selectedProcesses.includes(option.value)} onChange={handleCheckboxChange} value={option.value} />
+          } label={option.label} /> ))}
+        </FormGroup>
       <br />
-      <button type="submit">Give consent</button>
-    </form>
+      <Button variant="contained" onClick={handleSubmit}>Give consent</Button>
+    </Box>
   );
 };
 
