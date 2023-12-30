@@ -6,9 +6,9 @@ const ConsentForm = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [selectedProcesses, setSelectedProcesses] = useState([])
-  const options = [ { value: 'newsletter', label: 'Receive newsletter' },
-    { value: 'adTargetting', label: 'Be shown targetd ads' },
-    { value: 'stats', label: 'Contribute to anonymous visit statistics' }, 
+  const options = [ { value: 'Newsletter', label: 'Receive newsletter' },
+    { value: 'Ad Targetting', label: 'Be shown targetd ads' },
+    { value: 'Anonymous Stats', label: 'Contribute to anonymous visit statistics' }, 
   ];
 
   const handleCheckboxChange = (event) => {
@@ -30,7 +30,10 @@ const ConsentForm = () => {
 
   const handleSubmit = (e) => {
     // End result
-    consents.value = [...consents.value, {name, email, selectedProcesses}]
+    //TODO: Fake a POST
+    const processes = selectedProcesses.join(', ')
+    console.log(processes)
+    consents.value = [...consents.value, {name, email, selectedProcesses: processes}]
     clearForm()
   };
 
@@ -39,7 +42,9 @@ const ConsentForm = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: 'auto',
+        width: '100%'
       }}
     >
         <TextField label='Name' onChange={(e) => setName(e.target.value)} value={name} variant='outlined'/>

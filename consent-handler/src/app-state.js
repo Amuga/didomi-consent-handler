@@ -3,8 +3,8 @@
 const mockConsentsData = {
   status: 'success',
   data: [
-      {email: 'Dolly.Parton@jolene.com', name: 'Dolly Parton', selectedProcesses: 'newsletter'},
-      {email: 'Julian.Assange@somewherehidden.com', name: 'Not Julian Assange', selectedProcesses: 'stats'},
+      {email: 'Dolly.Parton@jolene.com', name: 'Dolly Parton', selectedProcesses: 'Newsletter'},
+      {email: 'Julian.Assange@somewherehidden.com', name: 'Not Julian Assange', selectedProcesses: 'Anonymous Stats'},
       // Add more mock data as needed
     ],
 };
