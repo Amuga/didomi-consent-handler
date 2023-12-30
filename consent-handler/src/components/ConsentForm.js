@@ -28,15 +28,15 @@ const ConsentForm = () => {
     setSelectedProcesses([])
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     // End result
-    //TODO: Fake a POST
-    if( name && email && selectedProcesses.length ) {
+    // TODO: Fake a POST
+    if ( name.trim() && email.trim() && selectedProcesses.length ) {
       const processes = selectedProcesses.join(', ')
       consents.value = [...consents.value, {name: name.trim(), email: email.trim(), selectedProcesses: processes.trim()}]
       clearForm()
     } else {
-      //TODO: Implement proper validation
+      // TODO: Implement proper validation, etc
       alert('You must input a name, email and select at least one process')
     }
   };
@@ -52,9 +52,23 @@ const ConsentForm = () => {
         width: '100%'
       }}
     >
-        <TextField label='Name' error={!name} helperText={!name && 'Name is required'} required onChange={(e) => setName(e.target.value)} value={name} variant='outlined'/>
+        <TextField label='Name'
+        error={!name}
+        helperText={!name && 'Name is required'}
+        required
+        placeholder='John'
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+        variant='outlined'/>
       <br />
-        <TextField type="email" error={!email} helperText={!email && 'Email is required'} required label='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+        <TextField label='Email'
+          type="email"
+          error={!email}
+          helperText={!email && 'Email is required'}
+          placeholder='John'
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} />
       <br />
         Data Processes *
         <FormGroup> {options.map((option) => ( 
