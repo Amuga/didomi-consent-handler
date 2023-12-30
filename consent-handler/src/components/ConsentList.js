@@ -12,7 +12,7 @@ const ConsentList = () => {
     // Calculate the index of the first and last consent to show on the current page
     const indexOfLastResult = computed(() => currentPage * resultsPerPage)
     const indexOfFirstResult = computed(() => indexOfLastResult - resultsPerPage)
-    // For some reasons using a singal for currentResults wasn't working/properly updating when clicking pages, unsure why, but I went with a local state in the end.
+    // For some reasons using a singal/computed for currentResults wasn't working/properly updating when clicking pages, unsure why, but I went with a local state in the end.
     const [currentResults, setCurrentResults] = useState(consents?.value.slice(indexOfFirstResult, indexOfLastResult))
 
     const handlePaginate = index => {

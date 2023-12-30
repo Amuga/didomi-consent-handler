@@ -31,9 +31,14 @@ const ConsentForm = () => {
   const handleSubmit = (e) => {
     // End result
     //TODO: Fake a POST
-    const processes = selectedProcesses.join(', ')
-    consents.value = [...consents.value, {name, email, selectedProcesses: processes}]
-    clearForm()
+    if( name && email && selectedProcesses.length ) {
+      const processes = selectedProcesses.join(', ')
+      consents.value = [...consents.value, {name: name.trim(), email: email.trim(), selectedProcesses: processes.trim()}]
+      clearForm()
+    } else {
+      //TODO: Implement proper validation
+      alert('You must input a name, email and select at least one process')
+    }
   };
 
   return (
@@ -43,14 +48,15 @@ const ConsentForm = () => {
         flexDirection: 'column',
         alignItems: 'center',
         margin: 'auto',
+        paddingTop: '20px',
         width: '100%'
       }}
     >
-        <TextField label='Name' onChange={(e) => setName(e.target.value)} value={name} variant='outlined'/>
+        <TextField label='Name' error={!name} helperText={!name && 'Name is required'} required onChange={(e) => setName(e.target.value)} value={name} variant='outlined'/>
       <br />
-        <TextField type="email" label='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+        <TextField type="email" error={!email} helperText={!email && 'Email is required'} required label='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
       <br />
-        Data Processes:
+        Data Processes *
         <FormGroup> {options.map((option) => ( 
           <FormControlLabel key={option.value} control={
             <Checkbox checked={selectedProcesses.includes(option.value)} onChange={handleCheckboxChange} value={option.value} />
