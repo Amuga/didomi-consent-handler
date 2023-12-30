@@ -30,10 +30,10 @@ const ConsentForm = () => {
 
   const handleSubmit = () => {
     // End result
-    // TODO: Fake a POST
-    if ( name.trim() && email.trim() && selectedProcesses.length ) {
+    if (name.trim() && email.trim() && selectedProcesses.length) {
       const processes = selectedProcesses.join(', ')
-      consents.value = [...consents.value, {name: name.trim(), email: email.trim(), selectedProcesses: processes.trim()}]
+      // TODO: Fake a POST
+      consents.value = [...consents.value, {name: name.trim(), email: email.trim(), selectedProcesses: processes}]
       clearForm()
     } else {
       // TODO: Implement proper validation, etc
