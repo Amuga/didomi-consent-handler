@@ -32,7 +32,6 @@ const ConsentForm = () => {
     // End result
     //TODO: Fake a POST
     const processes = selectedProcesses.join(', ')
-    console.log(processes)
     consents.value = [...consents.value, {name, email, selectedProcesses: processes}]
     clearForm()
   };
