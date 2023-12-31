@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { signal, computed } from "@preact/signals-react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, ButtonGroup } from '@mui/material'
 import { consents } from '../App'
 
 
@@ -54,14 +54,17 @@ const ConsentList = () => {
         </TableContainer>
         )
       : 
-        <div> There are no consents in the list</div>
+        <div> There is no data to show </div>
       }
       {/* Pagination */}
         {consents?.value.length > resultsPerPage && (
           <div style={{ marginTop: '20px'}}>
-          {Array.from({ length: Math.ceil(consents.value.length / resultsPerPage) }, (_, index) => (
-            <button style={{marginLeft: '5px'}} key={index + 1} onClick={() => handlePaginate(index)}>{index + 1}</button>
-          ))}
+            <ButtonGroup variant="contained" aria-label="outlined primary button group">
+              {Array.from({ length: Math.ceil(consents.value.length / resultsPerPage) }, (_, index) => (
+                <Button key={index + 1} onClick={() => handlePaginate(index)}>{index + 1}</Button>
+              ))}
+           </ButtonGroup>
+
         </div>
       )}
     </div>

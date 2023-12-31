@@ -13,7 +13,6 @@ const mockConsentsData = {
   window.fetch = new Proxy(window.fetch, {
     apply: async function (target, thisArg, argumentsList) {
         const url = argumentsList[0];
-
         // Check if the URL contains the desired path
         if (url.includes('/consents')) {
         // Intercept the request and return the mock data

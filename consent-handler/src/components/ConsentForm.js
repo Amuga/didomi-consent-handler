@@ -29,14 +29,34 @@ const ConsentForm = () => {
   }
 
   const handleSubmit = () => {
-    // End result
-    if (name.trim() && email.trim() && selectedProcesses.length) {
+    const trimmedName = name.trim()
+    const trimmedEmail = email.trim()
+    
+    if (trimmedName && trimmedEmail && selectedProcesses.length) {
       const processes = selectedProcesses.join(', ')
-      // TODO: Fake a POST
-      consents.value = [...consents.value, {name: name.trim(), email: email.trim(), selectedProcesses: processes}]
+      fetch('/consents', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          selectedProcesses: processes
+        })
+      })
+        .then(response => response.json())
+        .then(() => {
+          //Post successful, updating data with the "payload".
+          consents.value = [...consents.value, { name: trimmedName, email: trimmedEmail, selectedProcesses: processes }, ]
+          clearForm()
+        })
+        .catch(error => {
+          console.error('Error:', error)
+        })
       clearForm()
     } else {
-      // TODO: Implement proper validation, etc
+      // TODO/nice to have: Implement proper validation.
       alert('You must input a name, email and select at least one process')
     }
   };
